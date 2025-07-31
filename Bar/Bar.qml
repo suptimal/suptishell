@@ -19,7 +19,7 @@ PanelWindow {
         spacing: 5
         anchors.fill: parent
         Layout.fillHeight: true
-        WorkspaceList {}
+        HyprlandWorkspaceList {}
 
         // spacer to create left and right side
         Item {
