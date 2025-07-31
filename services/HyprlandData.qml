@@ -8,6 +8,7 @@ import Quickshell.Hyprland
 
 /**
  * Provides access to some Hyprland data not available in Quickshell.Hyprland.
+ * thx to https://github.com/end-4/dots-hyprland/blob/main/.config/quickshell/ii/services/HyprlandData.qml
  */
 Singleton {
     id: root
