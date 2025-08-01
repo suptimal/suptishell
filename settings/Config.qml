@@ -5,7 +5,7 @@ import Quickshell
 Singleton {
     id: root
 
-    property int barHeight: 30
+    property int barHeight: 29
 
     // Backgrounds
     property color backgroundPrimary: "#0C0D11"
