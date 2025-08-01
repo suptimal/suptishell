@@ -6,6 +6,7 @@ import qs.services
 import qs.settings
 
 PanelWindow {
+    screen: Quickshell.screens.length > 0 ? Quickshell.screens[0] : null
 
     anchors {
         left: true
