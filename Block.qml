@@ -5,7 +5,8 @@ import qs.settings
 
 Item {
     id: root
-    required property string label
+    property string label: ""
+    property var labelColor: null
     property url iconSource: "" // optional
 
     // Let the layout determine height, set width based on content
@@ -28,16 +29,17 @@ Item {
             visible: root.iconSource != ""
             source: root.iconSource
             fillMode: Image.PreserveAspectFit
-            Layout.preferredWidth: text.font.pixelSize
-            Layout.preferredHeight: text.font.pixelSize
+            Layout.preferredWidth: Config.fontSizeBody
+            Layout.preferredHeight: Config.fontSizeBody
         }
 
         Text {
             id: text
+            visible: root.label != ""
             text: root.label
             font.pixelSize: Config.fontSizeBody
             font.family: Config.fontFamily
-            color: Config.textPrimary
+            color: root.labelColor ?? Config.textPrimary
             Layout.alignment: Qt.AlignVCenter
         }
     }
