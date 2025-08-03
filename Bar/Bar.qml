@@ -1,9 +1,10 @@
 import Quickshell
 import QtQuick
-import QtQuick.Layouts 
+import QtQuick.Layouts
 import qs
 import qs.services
 import qs.settings
+import Quickshell.Services.UPower
 
 PanelWindow {
     screen: Quickshell.screens.length > 0 ? Quickshell.screens[0] : null
@@ -32,6 +33,30 @@ PanelWindow {
             label: NetworkManager.networkConnectivity == "full" ? "up" : "DOWN"
         }
         Block {
+            property var bat0: UPower.devices.values.find(e => e.isLaptopBattery)
+
+            function formatTime(seconds) {
+                let hours = Math.floor(seconds / 3600);
+                let minutes = Math.floor((seconds % 3600) / 60);
+                return hours > 0 ? hours + "h " + minutes + "m" : minutes + "m";
+            }
+
+            visible: bat0 !== null
+
+            label: Math.round(bat0.percentage * 100) + "%" + (bat0.state === UPowerDeviceState.Charging ? " (" + formatTime(bat0.timeToFull) + ")" : "")
+            iconSource: Quickshell.iconPath(bat0.iconName)
+
+            labelColor: {
+                if (bat0.state != UPowerDeviceState.Discharging)
+                    return Config.textPrimary;
+                if (bat0.percentage < 0.2)
+                    return Config.error;
+                if (bat0.percentage < 0.4)
+                    return Config.warning;
+                return Config.textPrimary;
+            }
+        }
+        Block {
             label: Qt.formatDateTime(clock.date, "hh:mm")
             SystemClock {
                 id: clock
@@ -39,5 +64,4 @@ PanelWindow {
             }
         }
     }
-
 }
