@@ -11,7 +11,7 @@ Item {
 
     // Let the layout determine height, set width based on content
     Layout.fillHeight: true
-    implicitWidth: row.implicitWidth + 10
+    implicitWidth: row.implicitWidth + 6
 
     Rectangle {
         anchors.fill: parent
@@ -22,7 +22,7 @@ Item {
     RowLayout {
         id: row
         anchors.centerIn: parent
-        spacing: 5
+        spacing: 2
 
         // Only show icon if iconSource is set
         Image {
