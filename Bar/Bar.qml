@@ -5,6 +5,7 @@ import qs
 import qs.services
 import qs.settings
 import Quickshell.Services.UPower
+import Quickshell.Services.Pipewire
 
 PanelWindow {
     screen: Quickshell.screens.length > 0 ? Quickshell.screens[0] : null
@@ -29,6 +30,16 @@ PanelWindow {
         }
 
         Block {
+            PwObjectTracker {
+                objects: [ Pipewire.defaultAudioSink ]
+            }
+
+            property var audio: Pipewire.defaultAudioSink.audio
+            iconSource: Quickshell.iconPath('audio-symbolic')
+            label: audio.muted ? "M" : Math.round(audio.volume * 100)+"%"
+            labelColor: audio.muted ? Config.error : Config.textPrimary
+        }
+        Block {
             iconSource: Quickshell.iconPath(NetworkManager.networkSymbol)
             label: NetworkManager.networkConnectivity == "full" ? "up" : "DOWN"
         }
@@ -43,7 +54,7 @@ PanelWindow {
 
             visible: bat0 !== null
 
-            label: Math.round(bat0.percentage * 100) + "%" + (bat0.state === UPowerDeviceState.Charging ? " (" + formatTime(bat0.timeToFull) + ")" : "")
+            label: Math.round(bat0.percentage * 100) + "%" + (bat0.state === UPowerDeviceState.Charging && bat0.percentage < 0.97 ? " (" + formatTime(bat0.timeToFull) + ")" : "")
             iconSource: Quickshell.iconPath(bat0.iconName)
 
             labelColor: {
