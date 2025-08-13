@@ -52,7 +52,7 @@ PanelWindow {
                 return hours > 0 ? hours + "h " + minutes + "m" : minutes + "m";
             }
 
-            visible: bat0 !== null
+            visible: bat0 != null
 
             label: Math.round(bat0.percentage * 100) + "%" + (bat0.state === UPowerDeviceState.Charging && bat0.percentage < 0.97 ? " (" + formatTime(bat0.timeToFull) + ")" : "")
             iconSource: Quickshell.iconPath(bat0.iconName)
