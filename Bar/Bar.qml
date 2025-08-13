@@ -8,6 +8,7 @@ import Quickshell.Services.UPower
 import Quickshell.Services.Pipewire
 
 PanelWindow {
+    id: bar
     screen: Quickshell.screens.length > 0 ? Quickshell.screens[0] : null
 
     anchors {
@@ -34,10 +35,10 @@ PanelWindow {
                 objects: [ Pipewire.defaultAudioSink ]
             }
 
-            property var audio: Pipewire.defaultAudioSink.audio
+            property var audio: Pipewire.defaultAudioSink?.audio
             iconSource: Quickshell.iconPath('audio-symbolic')
-            label: audio.muted ? "M" : Math.round(audio.volume * 100)+"%"
-            labelColor: audio.muted ? Config.error : Config.textPrimary
+            label: audio?.muted ? "M" : Math.round(audio?.volume * 100)+"%"
+            labelColor: audio?.muted ? Config.error : Config.textPrimary
         }
         Block {
             iconSource: Quickshell.iconPath(NetworkManager.networkSymbol)
@@ -54,15 +55,15 @@ PanelWindow {
 
             visible: bat0 != null
 
-            label: Math.round(bat0.percentage * 100) + "%" + (bat0.state === UPowerDeviceState.Charging && bat0.percentage < 0.97 ? " (" + formatTime(bat0.timeToFull) + ")" : "")
-            iconSource: Quickshell.iconPath(bat0.iconName)
+            label: Math.round(bat0?.percentage * 100) + "%" + (bat0?.state === UPowerDeviceState.Charging && bat0?.percentage < 0.97 ? " (" + formatTime(bat0?.timeToFull) + ")" : "")
+            iconSource: Quickshell.iconPath(bat0?.iconName)
 
             labelColor: {
-                if (bat0.state != UPowerDeviceState.Discharging)
+                if (bat0?.state != UPowerDeviceState.Discharging)
                     return Config.textPrimary;
-                if (bat0.percentage < 0.2)
+                if (bat0?.percentage < 0.2)
                     return Config.error;
-                if (bat0.percentage < 0.4)
+                if (bat0?.percentage < 0.4)
                     return Config.warning;
                 return Config.textPrimary;
             }
@@ -74,5 +75,8 @@ PanelWindow {
                 precision: SystemClock.Minutes
             }
         }
+
+        Bluetooth {}
+
     }
 }
