@@ -62,7 +62,7 @@ Item {
             Repeater {
                 model: Bluetooth.devices.values
 
-                    Rectangle {
+                    Item {
                         id: devitem
                         required property BluetoothDevice modelData
                         implicitHeight: devrow.height

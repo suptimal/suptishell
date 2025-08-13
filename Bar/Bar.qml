@@ -68,6 +68,7 @@ PanelWindow {
                 return Config.textPrimary;
             }
         }
+        Bluetooth {}
         Block {
             label: Qt.formatDateTime(clock.date, "hh:mm")
             SystemClock {
@@ -75,8 +76,5 @@ PanelWindow {
                 precision: SystemClock.Minutes
             }
         }
-
-        Bluetooth {}
-
     }
 }
