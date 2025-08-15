@@ -26,7 +26,8 @@ Singleton {
         "footclient": "foot",
         "zen": "zen-browser",
         "brave-browser": "brave-desktop",
-        "TeamSpeak 3": "teamspeak"
+        "TeamSpeak 3": "teamspeak",
+        "shapez 2.x86_64": "steam_app_2162800"
     })
     property var regexSubstitutions: [
         {
@@ -112,7 +113,9 @@ Singleton {
 
         // Normal substitutions
         if (substitutions[str])
-            return Quickshell.iconPath(substitutions[str]);
+            str = substitutions[str]
+        if (iconExists(str))
+            return Quickshell.iconPath(str);
 
         // Regex substitutions
         for (let i = 0; i < regexSubstitutions.length; i++) {
@@ -174,7 +177,7 @@ Process {
         "find ~/.local/share/Steam/appcache/librarycache/ -type f -regextype posix-extended -regex '.*/[a-f0-9]{40}\\.[a-z]{3,4}'"
     ]
     stdout: StdioCollector {
-        onStreamFinished: {
+        onStreamFinished: {1
             root.steamIcons = data;
         }
     }
